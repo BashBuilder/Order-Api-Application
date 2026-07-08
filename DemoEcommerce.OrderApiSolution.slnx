@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../DemoEcommerce.SharedLibrarySolutions/Ecommerce.SharedLibrary/Ecommerce.SharedLibrary.csproj" />
   <Project Path="OrderApi.Application/OrderApi.Application.csproj" />
   <Project Path="OrderApi.Domain/OrderApi.Domain.csproj" />
   <Project Path="OrderApi.Infrastructure/OrderApi.Infrastructure.csproj" />

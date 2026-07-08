@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.9" />
+    <PackageReference Include="Polly.Core" Version="8.7.0" />
+    <PackageReference Include="Polly.Extensions" Version="8.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DemoEcommerce.SharedLibrarySolutions\Ecommerce.SharedLibrary\Ecommerce.SharedLibrary.csproj" />
+    <ProjectReference Include="..\OrderApi.Domain\OrderApi.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
