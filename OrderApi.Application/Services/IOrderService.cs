@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OrderApi.Application.Services
 {
-    internal interface IOrderService
+    public interface IOrderService
     {
         Task<IEnumerable<OrderDTO>> GetOrderByClientId(int clientId);
         Task<OrderDetailsDTO> GetOrderDetails(int orderId);
