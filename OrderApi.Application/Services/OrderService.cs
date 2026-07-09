@@ -1,12 +1,8 @@
 ﻿using OrderApi.Application.DTO;
 using OrderApi.Application.DTO.Mapping;
 using OrderApi.Application.Interfaces;
-using Polly;
 using Polly.Registry;
-using System;
-using System.Collections.Generic;
 using System.Net.Http.Json;
-using System.Text;
 
 namespace OrderApi.Application.Services
 {
@@ -24,7 +20,7 @@ namespace OrderApi.Application.Services
 
             var product = await getProduct.Content.ReadFromJsonAsync<ProductDTO>();
 
-            return product;
+            return product!;
         } 
         
         //get user from the user api

@@ -4,9 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using OrderApi.Application.Services;
 using Polly;
 using Polly.Retry;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OrderApi.Application.DependencyInjections
 {
@@ -16,30 +13,35 @@ namespace OrderApi.Application.DependencyInjections
         {
             services.AddHttpClient<IOrderService, OrderService>(options =>
             {
-                options.BaseAddress = new Uri(config["ApiGateway: BaseAddress"]!);
+                options.BaseAddress = new Uri(config["ApiGateway:BaseAddress"]!);
                 options.Timeout = TimeSpan.FromSeconds(5);
             });
 
             var retryStrategy = new RetryStrategyOptions()
             {
-                ShouldHandle = new PredicateBuilder().Handle<TaskCanceledException>(),
+                ShouldHandle = new PredicateBuilder()
+                    .Handle<TaskCanceledException>()
+                    .Handle<HttpRequestException>(),
                 BackoffType = DelayBackoffType.Constant,
                 UseJitter = true,
                 MaxRetryAttempts = 3,
                 Delay = TimeSpan.FromMilliseconds(500),
                 OnRetry = args =>
                 {
-                    string message = $"OnRetrym Attempt : {args.AttemptNumber} Outcome {args.Outcome}";
+                    string message = $"OnRetry Attempt : {args.AttemptNumber} Outcome {args.Outcome}";
                     LogException.LogToConsole(message);
                     LogException.LogToDebugger(message);
                     return ValueTask.CompletedTask;
                 }
             };
 
-            services.AddResiliencePipeline("my-retry-pipeline", builder =>
-            {
-                builder.AddRetry(retryStrategy);
-            });
+            services.AddResiliencePipeline("my-retry-pipeline", 
+                builder =>
+                    {
+                        builder.InstanceName = "Default";
+                        builder.AddRetry(retryStrategy);
+                    }
+             );
 
 
             return services;

@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using OrderApi.Application.Interfaces;
 using OrderApi.Domain.Entities;
 using OrderApi.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -40,7 +38,7 @@ namespace OrderApi.Infrastructure.Repositories
                 var order = await FindByIdAsync(entity.Id);
                 if (order is null) return new Response(false, "Order not found");
 
-                context.Orders.Remove(entity);
+                context.Orders.Remove(order);
                 await context.SaveChangesAsync();
                 return new Response(true, "Order successfully deleted");
 
