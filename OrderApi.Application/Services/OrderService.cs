@@ -26,7 +26,7 @@ namespace OrderApi.Application.Services
         //get user from the user api
         public async Task<AppUserDTO> GetUser(int userId)
         {
-            var getProduct = await httpClient.GetAsync($"/api/product/{userId}");
+            var getProduct = await httpClient.GetAsync($"http://localhost:5000/api/Auth/{userId}");
             if (!getProduct.IsSuccessStatusCode) return null!;
 
             var user = await getProduct.Content.ReadFromJsonAsync<AppUserDTO>();

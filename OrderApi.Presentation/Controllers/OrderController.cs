@@ -1,4 +1,5 @@
 ﻿using Ecommerce.SharedLibrary.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrderApi.Application.DTO;
 using OrderApi.Application.DTO.Mapping;
@@ -9,6 +10,7 @@ namespace OrderApi.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController(
             IOrder orderInterface, 
             IOrderService orderService
